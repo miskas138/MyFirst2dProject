@@ -14,7 +14,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
   [SerializeField]
   private SpriteRenderer spriteRenderer;
   private Rigidbody2D rig;
-   
+  [SerializeField]
+  private Animator anim; 
 
     void Awake()
     {
@@ -51,7 +52,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             spriteRenderer.flipX = moveInput < 0;
         }
-    }
+        anim.SetBool("moving", rig.linearVelocityX != 0);  // Ενημέρωση της παραμέτρου "moving" στο Animator.
+        //  moveInput != 0 αν θέλω να ενεργοποιείται οταν πατάω κουμπί κίνησης
+        anim.SetBool("grounded", isGrounded);  // Ενημέρωση της παραμέτρου "grounded" στο Animator.
+    }   
     void CheckIfGrounded()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
